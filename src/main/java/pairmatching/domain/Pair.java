@@ -1,9 +1,10 @@
 package pairmatching.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Pair {
-    private List<Crew> crews;
+    private List<Crew> crews = new ArrayList<>();
 
     public Pair() {
     }
