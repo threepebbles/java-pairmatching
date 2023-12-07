@@ -5,9 +5,9 @@ import error.ErrorHandler;
 import java.util.List;
 
 public class MainView {
-    private final List<String> OPTIONS = List.of("1", "2", "3", "Q");
+    private final static List<String> OPTIONS = List.of("1", "2", "3", "Q");
 
-    public void printOptions() {
+    public static void printOptions() {
         System.out.println("기능을 선택하세요.");
         System.out.println("1. 페어 매칭");
         System.out.println("2. 페어 조회");
@@ -15,7 +15,7 @@ public class MainView {
         System.out.println("Q. 종료");
     }
 
-    public String scanOption() {
+    public static String scanOption() {
         return (String) ErrorHandler.retryUntilSuccessWithReturn(() -> {
             String userInput = Console.readLine();
             checkOption(userInput);
@@ -23,7 +23,7 @@ public class MainView {
         });
     }
 
-    private void checkOption(String userInput) {
+    private static void checkOption(String userInput) {
         if (!OPTIONS.contains(userInput)) {
             throw new IllegalArgumentException("유효하지 않은 옵션입니다.");
         }
