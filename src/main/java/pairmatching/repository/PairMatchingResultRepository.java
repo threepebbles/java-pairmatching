@@ -30,4 +30,8 @@ public class PairMatchingResultRepository {
                         pairMatchingResult.getCourse().equals(course)
                                 && pairMatchingResult.getMission().equals(mission));
     }
+
+    public static void clear() {
+        PAIR_MATCHING_RESULTS.clear();
+    }
 }
