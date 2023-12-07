@@ -7,7 +7,7 @@ import pairmatching.error.ErrorHandler;
 public class MainView {
     private final static List<String> OPTIONS = List.of("1", "2", "3", "Q");
 
-    public static void printOptions() {
+    private static void printOptions() {
         System.out.println("기능을 선택하세요.");
         System.out.println("1. 페어 매칭");
         System.out.println("2. 페어 조회");
@@ -17,6 +17,7 @@ public class MainView {
 
     public static String scanOption() {
         return (String) ErrorHandler.retryUntilSuccessWithReturn(() -> {
+            printOptions();
             String userInput = Console.readLine();
             checkOption(userInput);
             return userInput;
