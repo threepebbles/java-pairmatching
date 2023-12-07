@@ -1,8 +1,8 @@
-package view;
+package pairmatching.view;
 
 import camp.nextstep.edu.missionutils.Console;
-import error.ErrorHandler;
 import java.util.List;
+import pairmatching.error.ErrorHandler;
 
 public class MainView {
     private final static List<String> OPTIONS = List.of("1", "2", "3", "Q");

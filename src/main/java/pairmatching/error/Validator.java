@@ -1,4 +1,4 @@
-package error;
+package pairmatching.error;
 
 import java.util.List;
 import java.util.Objects;

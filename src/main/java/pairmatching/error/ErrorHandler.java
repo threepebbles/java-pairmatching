@@ -1,7 +1,7 @@
-package error;
+package pairmatching.error;
 
 import java.util.function.Supplier;
-import view.ErrorView;
+import pairmatching.view.ErrorView;
 
 public class ErrorHandler {
     public static <T> Object retryUntilSuccessWithReturn(Supplier<T> supplier) {

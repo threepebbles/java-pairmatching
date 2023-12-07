@@ -1,9 +1,9 @@
-package view.inputDto;
+package pairmatching.view.inputDto;
 
-import error.ErrorMessage;
-import error.Validator;
 import java.util.List;
-import util.Parser;
+import pairmatching.error.ErrorMessage;
+import pairmatching.error.Validator;
+import pairmatching.util.Parser;
 
 public class MissionDto {
     private final String course;

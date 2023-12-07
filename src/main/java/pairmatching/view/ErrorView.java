@@ -1,6 +1,6 @@
-package view;
+package pairmatching.view;
 
-import error.ErrorMessage;
+import pairmatching.error.ErrorMessage;
 
 public class ErrorView {
     public static void println(String message) {

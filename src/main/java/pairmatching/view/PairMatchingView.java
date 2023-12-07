@@ -1,15 +1,15 @@
-package view;
+package pairmatching.view;
 
 import camp.nextstep.edu.missionutils.Console;
-import domain.Course;
-import domain.Level;
-import domain.Mission;
-import error.ErrorHandler;
-import error.ErrorMessage;
-import error.Validator;
 import java.util.List;
-import util.Parser;
-import view.inputDto.MissionDto;
+import pairmatching.domain.Course;
+import pairmatching.domain.Level;
+import pairmatching.domain.Mission;
+import pairmatching.error.ErrorHandler;
+import pairmatching.error.ErrorMessage;
+import pairmatching.error.Validator;
+import pairmatching.util.Parser;
+import pairmatching.view.inputDto.MissionDto;
 
 public class PairMatchingView {
     private static final String PAIR_MATCHING_DESCRIPTION = """

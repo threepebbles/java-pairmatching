@@ -1,4 +1,4 @@
-package error;
+package pairmatching.error;
 
 public class ErrorMessage {
     public static final String ERROR_HEADER = "[ERROR]";
