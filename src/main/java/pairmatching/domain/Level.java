@@ -17,7 +17,6 @@ public enum Level {
         this.name = name;
     }
 
-    // 추가 기능 구현
     public static Level getLevelByName(String name) {
         List<Level> candidates = Arrays.stream(values())
                 .filter(level -> level.name.equals(name))

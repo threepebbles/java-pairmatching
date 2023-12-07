@@ -31,7 +31,6 @@ public class CrewInitializer {
 
     private static void initBackendCrews() {
         File file = new File("src/main/resources/backend-crew.md");
-
         try {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNext()) {

@@ -9,10 +9,6 @@ public class Pair {
     public Pair() {
     }
 
-    public Pair(List<Crew> crews) {
-        this.crews = crews;
-    }
-
     public void addCrew(Crew crew) {
         crews.add(crew);
     }

@@ -14,7 +14,6 @@ public enum Course {
         this.name = name;
     }
 
-    // 추가 기능 구현
     public static Course getCourseByName(String name) {
         List<Course> candidates = Arrays.stream(values())
                 .filter(course -> course.name.equals(name))
