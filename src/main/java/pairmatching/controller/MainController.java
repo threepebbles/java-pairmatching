@@ -52,6 +52,7 @@ public class MainController {
                 }
             }
             PairMatchingService.matchPairs(course, mission);
+            PairMatchingView.printPairMatchingResult(PairMatchingService.findPairMatchingResult(course, mission));
         });
     }
 
