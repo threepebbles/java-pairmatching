@@ -4,7 +4,7 @@ public class ErrorView {
     public static final String ERROR_HEADER = "[ERROR]";
     public static final String WHITE_SPACE = " ";
 
-    public void println(String message) {
+    public static void println(String message) {
         System.out.println(getErrorMessage(message));
     }
 
