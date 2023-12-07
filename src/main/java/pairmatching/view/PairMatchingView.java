@@ -29,19 +29,20 @@ public class PairMatchingView {
     private Level level;
     private Mission mission;
 
-    public void printDescription() {
+    public static void printDescription() {
         System.out.println(PAIR_MATCHING_DESCRIPTION);
     }
 
-    public MissionDto scanMission() {
+    public static MissionDto scanMission() {
         return (MissionDto) ErrorHandler.retryUntilSuccessWithReturn(() -> {
+            printDescription();
             String userInput = Console.readLine();
             checkMission(userInput);
             return new MissionDto(userInput);
         });
     }
 
-    private void checkMission(String userInput) {
+    private static void checkMission(String userInput) {
         List<String> parsed = Parser.parseWithDelimiter(userInput, ",");
         Validator.checkListSize(parsed, 3, ErrorMessage.getErrorMessage("올바르지 않은 입력 포맷입니다."));
     }
