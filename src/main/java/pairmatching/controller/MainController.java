@@ -29,11 +29,13 @@ public class MainController {
     }
 
     public void run() {
-        String option = MainView.scanOption();
-        if (option.equals(END_OPTION)) {
-            return;
+        while (true) {
+            String option = MainView.scanOption();
+            if (option.equals(END_OPTION)) {
+                break;
+            }
+            functions.get(option).run();
         }
-        functions.get(option).run();
     }
 
     private void makePairResult() {
