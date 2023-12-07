@@ -20,4 +20,8 @@ public class PairMatchingResult {
     public Mission getMission() {
         return mission;
     }
+
+    public List<Pair> getPairs() {
+        return pairs;
+    }
 }

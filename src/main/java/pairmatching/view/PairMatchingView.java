@@ -2,6 +2,9 @@ package pairmatching.view;
 
 import camp.nextstep.edu.missionutils.Console;
 import java.util.List;
+import java.util.StringJoiner;
+import pairmatching.domain.Crew;
+import pairmatching.domain.Pair;
 import pairmatching.domain.PairMatchingResult;
 import pairmatching.error.ErrorHandler;
 import pairmatching.error.ErrorMessage;
@@ -38,7 +41,18 @@ public class PairMatchingView {
     }
 
     public static void printPairMatchingResult(PairMatchingResult pairMatchingResult) {
+        System.out.println("페어 매칭 결과입니다.");
+        for (Pair pair : pairMatchingResult.getPairs()) {
+            printPair(pair);
+        }
+    }
 
+    private static void printPair(Pair pair) {
+        StringJoiner stringJoiner = new StringJoiner(" : ");
+        for (Crew crew : pair.getCrews()) {
+            stringJoiner.add(crew.getName());
+        }
+        System.out.println(stringJoiner);
     }
 
     public static MissionDto scanMission() {
