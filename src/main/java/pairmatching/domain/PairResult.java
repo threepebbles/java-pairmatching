@@ -7,6 +7,12 @@ public class PairResult {
     private Mission mission;
     private List<Pair> pairs;
 
+    public PairResult(Course course, Mission mission, List<Pair> pairs) {
+        this.course = course;
+        this.mission = mission;
+        this.pairs = pairs;
+    }
+
     public Course getCourse() {
         return course;
     }
