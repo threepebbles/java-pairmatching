@@ -21,10 +21,14 @@ public class PairMatchingService {
     public static void matchPairs(Course course, Mission mission) {
         deletePairMatchingResult(course, mission);
         List<Crew> crews = getCrewsByCourse(course);
+        List<String> crewNames = crews.stream()
+                .map(Crew::getName)
+                .toList();
+
         int tryCount = 0;
         while (tryCount < 3) {
-            List<Crew> shuffledCrews = Randoms.shuffle(crews);
-            List<Pair> pairs = getPairs(shuffledCrews);
+            List<String> shuffledCrewNames = Randoms.shuffle(crewNames);
+            List<Pair> pairs = getPairs(course, shuffledCrewNames);
             if (!checkPairs(pairs)) {
                 tryCount++;
                 continue;
@@ -69,15 +73,15 @@ public class PairMatchingService {
         return true;
     }
 
-    private static List<Pair> getPairs(List<Crew> shuffledCrews) {
+    private static List<Pair> getPairs(Course course, List<String> shuffledCrewNames) {
         List<Pair> pairs = new ArrayList<>();
-        for (int i = 0; i < shuffledCrews.size() - 1; i += 2) {
+        for (int i = 0; i < shuffledCrewNames.size() - 1; i += 2) {
             Pair pair = new Pair();
             for (int j = i; j <= i + 1; j++) {
-                pair.addCrew(shuffledCrews.get(j));
+                pair.addCrew(getCrewByCourseAndName(course, shuffledCrewNames.get(j)));
             }
-            if (shuffledCrews.size() % 2 != 0 && i == shuffledCrews.size() - 3) {
-                pair.addCrew(shuffledCrews.get(i + 2));
+            if (shuffledCrewNames.size() % 2 != 0 && i == shuffledCrewNames.size() - 3) {
+                pair.addCrew(getCrewByCourseAndName(course, shuffledCrewNames.get(i + 2)));
             }
             pairs.add(pair);
         }
@@ -89,5 +93,22 @@ public class PairMatchingService {
             return BackendCrewRepository.crews();
         }
         return FrontendCrewRepository.crews();
+    }
+
+    private static Crew getCrewByCourseAndName(Course course, String name) {
+        List<Crew> candidates = null;
+        if (course.equals(Course.BACKEND)) {
+            candidates = BackendCrewRepository.crews().stream()
+                    .filter(crew -> crew.getName().equals(name))
+                    .toList();
+        } else if (course.equals(Course.FRONTEND)) {
+            candidates = FrontendCrewRepository.crews().stream()
+                    .filter(crew -> crew.getName().equals(name))
+                    .toList();
+        }
+        if (candidates == null || candidates.size() != 1) {
+            throw new IllegalArgumentException(ErrorMessage.getErrorMessage("올바르지 않은 입력입니다."));
+        }
+        return candidates.get(0);
     }
 }
