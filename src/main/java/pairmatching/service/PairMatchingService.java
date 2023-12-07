@@ -35,6 +35,21 @@ public class PairMatchingService {
         throw new IllegalArgumentException(ErrorMessage.getErrorMessage("3회 이상 매칭에 실패하였습니다."));
     }
 
+    public static PairMatchingResult findPairMatchingResult(Course course, Mission mission) {
+        List<PairMatchingResult> result = PairMatchingResultRepository.pairMatchingResults()
+                .stream().filter(pairMatchingResult -> pairMatchingResult.getCourse().equals(course)
+                        && pairMatchingResult.getMission().equals(mission))
+                .toList();
+        if (result.size() != 1) {
+            throw new IllegalArgumentException(ErrorMessage.getErrorMessage("존재하지 않는 페어매칭 결과입니다."));
+        }
+        return result.get(0);
+    }
+
+    public static void clearPairMatchingResults() {
+        PairMatchingResultRepository.clear();
+    }
+
     private static void deletePairMatchingResult(Course course, Mission mission) {
         if (isPairMatchingResultExist(course, mission)) {
             PairMatchingResultRepository.deletePairMatchingResult(course, mission);
