@@ -37,4 +37,8 @@ public enum Mission {
                 .filter(mission -> mission.level.equals(level) && mission.name.equals(name))
                 .count() == 1;
     }
+
+    public Level getLevel() {
+        return level;
+    }
 }

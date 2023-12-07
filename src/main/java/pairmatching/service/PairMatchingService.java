@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import pairmatching.domain.Course;
 import pairmatching.domain.Crew;
+import pairmatching.domain.Level;
 import pairmatching.domain.Mission;
 import pairmatching.domain.Pair;
 import pairmatching.domain.PairMatchingResult;
@@ -20,23 +21,35 @@ public class PairMatchingService {
 
     public static void matchPairs(Course course, Mission mission) {
         deletePairMatchingResult(course, mission);
-        List<Crew> crews = getCrewsByCourse(course);
-        List<String> crewNames = crews.stream()
-                .map(Crew::getName)
-                .toList();
-
+        List<String> crewNames = getCrewNames(course);
         int tryCount = 0;
         while (tryCount < 3) {
             List<String> shuffledCrewNames = Randoms.shuffle(crewNames);
             List<Pair> pairs = getPairs(course, shuffledCrewNames);
-            if (!checkPairs(pairs)) {
+            if (!checkPairs(pairs, mission.getLevel())) {
                 tryCount++;
                 continue;
             }
-            PairMatchingResultRepository.addPairMatchingResult(new PairMatchingResult(course, mission, pairs));
+            applyPairs(course, mission, pairs);
             return;
         }
         throw new IllegalArgumentException(ErrorMessage.getErrorMessage("3회 이상 매칭에 실패하였습니다."));
+    }
+
+    private static void applyPairs(Course course, Mission mission, List<Pair> pairs) {
+        for (Pair pair : pairs) {
+            for (Crew crew : pair.getCrews()) {
+                crew.addPair(mission.getLevel(), pair);
+            }
+        }
+        PairMatchingResultRepository.addPairMatchingResult(new PairMatchingResult(course, mission, pairs));
+    }
+
+    private static List<String> getCrewNames(Course course) {
+        List<Crew> crews = getCrewsByCourse(course);
+        return crews.stream()
+                .map(Crew::getName)
+                .toList();
     }
 
     public static PairMatchingResult findPairMatchingResult(Course course, Mission mission) {
@@ -60,17 +73,23 @@ public class PairMatchingService {
         }
     }
 
-    private static boolean checkPairs(List<Pair> pairs) {
+    private static boolean checkPairs(List<Pair> pairs, Level level) {
         boolean isValid = true;
         for (Pair pair : pairs) {
-            isValid &= checkPair(pair);
+            isValid &= checkPair(pair, level);
         }
         return isValid;
     }
 
-    private static boolean checkPair(Pair pair) {
-        //TODO: 같은 레벨에서 이미 페어로 만난적 있는지 체크
-        return true;
+    private static boolean checkPair(Pair pair, Level level) {
+        boolean isOverlap = false;
+        List<Crew> crews = pair.getCrews();
+        for (int i = 0; i < crews.size(); i++) {
+            for (int j = i + 1; j < crews.size(); j++) {
+                isOverlap |= crews.get(i).isOverlap(level, crews.get(j));
+            }
+        }
+        return !isOverlap;
     }
 
     private static List<Pair> getPairs(Course course, List<String> shuffledCrewNames) {
