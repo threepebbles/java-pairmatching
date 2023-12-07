@@ -25,12 +25,13 @@ public class PairMatchingView {
                   과정, 레벨, 미션을 선택하세요.
                   ex) 백엔드, 레벨1, 자동차경주
             """;
-    private Course course;
-    private Level level;
-    private Mission mission;
 
     public static void printDescription() {
         System.out.println(PAIR_MATCHING_DESCRIPTION);
+    }
+    public static void printRematchMessage() {
+        System.out.println("매칭 정보가 있습니다. 다시 매칭하시겠습니까?");
+        System.out.println("네 | 아니오");
     }
 
     public static MissionDto scanMission() {
@@ -40,6 +41,21 @@ public class PairMatchingView {
             checkMission(userInput);
             return new MissionDto(userInput);
         });
+    }
+
+    public static String scanRematch() {
+        return (String) ErrorHandler.retryUntilSuccessWithReturn(() -> {
+            printRematchMessage();
+            String userInput = Console.readLine();
+            checkRematch(userInput);
+            return userInput;
+        });
+    }
+
+    private static void checkRematch(String userInput) {
+        if(!(userInput.equals("네") || userInput.equals("아니오"))) {
+            throw new IllegalArgumentException(ErrorMessage.getErrorMessage("네, 아니오로 입력해야합니다."))
+        }
     }
 
     private static void checkMission(String userInput) {
