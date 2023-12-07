@@ -20,7 +20,7 @@ public enum Course {
                 .filter(course -> course.name.equals(name))
                 .toList();
         if (candidates.size() != 1) {
-            throw new IllegalArgumentException(ErrorMessage.getErrorMessage("올바르지 않은 코스 이름입니다."));
+            throw new IllegalArgumentException(ErrorMessage.getErrorMessage("존재하지 않는 코스 이름입니다."));
         }
         return candidates.get(0);
     }
