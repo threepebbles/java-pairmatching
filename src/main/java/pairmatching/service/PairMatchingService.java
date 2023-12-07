@@ -73,7 +73,7 @@ public class PairMatchingService {
         List<Pair> pairs = new ArrayList<>();
         for (int i = 0; i < shuffledCrews.size() - 1; i += 2) {
             Pair pair = new Pair();
-            for (int j = i; j < i + 1; j++) {
+            for (int j = i; j <= i + 1; j++) {
                 pair.addCrew(shuffledCrews.get(j));
             }
             if (shuffledCrews.size() % 2 != 0 && i == shuffledCrews.size() - 3) {
