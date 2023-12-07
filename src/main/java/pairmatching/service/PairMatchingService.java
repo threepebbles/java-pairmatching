@@ -7,19 +7,19 @@ import pairmatching.domain.Course;
 import pairmatching.domain.Crew;
 import pairmatching.domain.Mission;
 import pairmatching.domain.Pair;
-import pairmatching.domain.PairResult;
+import pairmatching.domain.PairMatchingResult;
 import pairmatching.error.ErrorMessage;
 import pairmatching.repository.BackendCrewRepository;
 import pairmatching.repository.FrontendCrewRepository;
-import pairmatching.repository.PairResultRepository;
+import pairmatching.repository.PairMatchingResultRepository;
 
 public class PairMatchingService {
-    public static boolean isPairResultExist(Course course, Mission mission) {
-        return PairResultRepository.exists(course, mission);
+    public static boolean isPairMatchingResultExist(Course course, Mission mission) {
+        return PairMatchingResultRepository.exists(course, mission);
     }
 
     public static void matchPairs(Course course, Mission mission) {
-        deletePairResult(course, mission);
+        deletePairMatchingResult(course, mission);
         List<Crew> crews = getCrewsByCourse(course);
         int tryCount = 0;
         while (tryCount < 3) {
@@ -29,15 +29,15 @@ public class PairMatchingService {
                 tryCount++;
                 continue;
             }
-            PairResultRepository.addPairResult(new PairResult(course, mission, pairs));
+            PairMatchingResultRepository.addPairMatchingResult(new PairMatchingResult(course, mission, pairs));
             return;
         }
         throw new IllegalArgumentException(ErrorMessage.getErrorMessage("3회 이상 매칭에 실패하였습니다."));
     }
 
-    private static void deletePairResult(Course course, Mission mission) {
-        if (isPairResultExist(course, mission)) {
-            PairResultRepository.deletePairResult(course, mission);
+    private static void deletePairMatchingResult(Course course, Mission mission) {
+        if (isPairMatchingResultExist(course, mission)) {
+            PairMatchingResultRepository.deletePairMatchingResult(course, mission);
         }
     }
 
