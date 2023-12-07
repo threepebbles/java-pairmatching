@@ -19,14 +19,26 @@ public class MissionDto {
     public MissionDto(String userInput) {
         validate(userInput);
         List<String> parsed = Parser.parseWithDelimiter(userInput, ",");
-        course = parsed.get(0);
-        level = parsed.get(1);
-        mission = parsed.get(2);
+        course = parsed.get(0).trim();
+        level = parsed.get(1).trim();
+        mission = parsed.get(2).trim();
     }
 
     private void validate(String userInput) {
         List<String> parsed = Parser.parseWithDelimiter(userInput, ",");
         Validator.checkListSize(parsed, 3, ErrorMessage.getErrorMessage("올바르지 않은 포맷입니다."));
         parsed.forEach(s -> Validator.checkBlank(s, ErrorMessage.getErrorMessage("공백이 입력되었습니다.")));
+    }
+
+    public String getCourse() {
+        return course;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public String getMission() {
+        return mission;
     }
 }
