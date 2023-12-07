@@ -26,8 +26,8 @@ public enum Mission {
         List<Mission> candidates = Arrays.stream(values())
                 .filter(mission -> mission.level.equals(level) && mission.name.equals(name))
                 .toList();
-        if(candidates.size() != 1) {
-            throw new IllegalArgumentException(ErrorMessage.getErrorMessage("존재하지 않는 미션입니다."))
+        if (candidates.size() != 1) {
+            throw new IllegalArgumentException(ErrorMessage.getErrorMessage("존재하지 않는 미션입니다."));
         }
         return candidates.get(0);
     }
