@@ -25,4 +25,3 @@ public class ErrorHandler {
         }
     }
 }
-// Feat(ErrorHandler): 에러 발생 시 에러 메세지 출력 후 재시도 하도록 하는 기능 추가

@@ -39,7 +39,7 @@ public class PairMatchingService {
     private static void applyPairs(Course course, Mission mission, List<Pair> pairs) {
         for (Pair pair : pairs) {
             for (Crew crew : pair.getCrews()) {
-                crew.addPair(mission.getLevel(), pair);
+                crew.putPair(mission.getLevel(), pair);
             }
         }
         PairMatchingResultRepository.addPairMatchingResult(new PairMatchingResult(course, mission, pairs));

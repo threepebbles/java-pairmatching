@@ -22,7 +22,7 @@ public class Crew {
         return pair.getCrews().contains(crew);
     }
 
-    public void addPair(Level level, Pair pair) {
+    public void putPair(Level level, Pair pair) {
         myPairs.put(level, pair);
     }
 
