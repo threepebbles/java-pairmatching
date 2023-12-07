@@ -56,11 +56,6 @@ public class MainController {
         });
     }
 
-    private static Boolean requestRematch() {
-        String rematch = PairMatchingView.scanRematch();
-        return rematch.equals("네");
-    }
-
     private void lookupPairResult() {
         ErrorHandler.retryUntilSuccess(() -> {
             MissionDto missionDto = PairMatchingView.scanMission();
@@ -68,7 +63,7 @@ public class MainController {
             Level level = Level.getLevelByName(missionDto.getLevel());
             Mission mission = Mission.valueOf(level, missionDto.getMission());
 
-            if (PairMatchingService.isPairMatchingResultExist(course, mission)) {
+            if (!PairMatchingService.isPairMatchingResultExist(course, mission)) {
                 ErrorView.println(ErrorMessage.getErrorMessage("매칭 이력이 없습니다."));
                 return;
             }
@@ -79,5 +74,10 @@ public class MainController {
     private void initializePairResults() {
         PairMatchingService.clearPairMatchingResults();
         PairMatchingView.printClearPairMatchingResults();
+    }
+
+    private static Boolean requestRematch() {
+        String rematch = PairMatchingView.scanRematch();
+        return rematch.equals("네");
     }
 }
